@@ -1,20 +1,12 @@
 SELECT * FROM account;
-
 SELECT *
 FROM loan;
 SELECT * FROM disp ;
-
 SELECT * FROM client;
-
 SELECT * FROM district;
-
 SELECT * FROM order ;
-
 SELECT * FROM trans;
-
 SELECT * FROM card;
-
-
 
 -- 1. primární a cizí klíče:
 -- Loan – pk: loan_id, ck: account_id
@@ -76,7 +68,6 @@ FROM loan
 GROUP BY loan_year WITH ROLLUP
 ORDER BY loan_year DESC;
 
-
 -- total
 SELECT
     sum(amount) as total_amount_of_loans,
@@ -88,7 +79,6 @@ FROM loan;
 -- 3. STAV PŮJČKY
 
 -- stavy půjček: splacené a nesplacené
-
 -- Dle informací je 606 splacených a 76 nesplacených
 SELECT
     status,
@@ -98,8 +88,6 @@ group by status
 order by status;
 
 -- Zjistili jsme že řádky A a C odpovídají splaceným půjčkám a B a D nesplaceným půjčkám.
-
-
 
 -- 4.ANALÝZA ÚČTŮ
 
