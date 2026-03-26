@@ -63,9 +63,14 @@ This part also includes analysis of why a query may return an empty result set.
 ### 9. Expiring cards procedure
 Creation of a stored procedure to build a table containing cards expiring within the current week, including client and district information.
 
+## Project brief
+The original project brief is included in this repository in both Czech and English versions.
+
+- project_brief_cz.pdf
+- project_brief_en.pdf
+  
 ## Files in this repository
 - `financial_data_analysis.sql` – main SQL solution
-- `project_brief.pdf` – original project brief
 - `.csv` files – source data files used in the project
 
 ## Skills demonstrated
