@@ -66,8 +66,8 @@ Creation of a stored procedure to build a table containing cards expiring within
 ## Project brief
 The original project brief is included in this repository in both Czech and English versions.
 
-- project_brief_cz.pdf
-- project_brief_en.pdf
+- `project_brief_cz.pdf`
+- `project_brief_en.pdf`
   
 ## Files in this repository
 - `financial_data_analysis.sql` – main SQL solution
