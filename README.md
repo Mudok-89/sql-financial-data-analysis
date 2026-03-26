@@ -5,6 +5,7 @@ SQL project based on an anonymized financial dataset from a Czech bank. The anal
 ## Project background
 This project was completed as a final workshop in an SQL data analysis course. It uses an anonymized real-world financial dataset containing information about clients, accounts, loans, transactions, payment orders, cards, and districts.
 
+## Project goal
 The goal of the project was to practice analytical SQL on a realistic banking dataset and answer business-oriented questions related to loan history, repayment status, customer characteristics, and regional patterns.
 
 ## Analytical areas covered
