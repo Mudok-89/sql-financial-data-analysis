@@ -1,12 +1,12 @@
 SELECT * FROM account;
-SELECT *
-FROM loan;
+SELECT * FROM loan;
 SELECT * FROM disp ;
 SELECT * FROM client;
 SELECT * FROM district;
 SELECT * FROM order ;
 SELECT * FROM trans;
 SELECT * FROM card;
+
 
 -- 1. primární a cizí klíče:
 -- Loan – pk: loan_id, ck: account_id
@@ -18,6 +18,25 @@ SELECT * FROM card;
 -- Client – pk: client_id, ck: district_id
 -- District – pk: district_id,
 
+--1.  Vezměme account a trans, tedy vztah account- client. 
+-- Můžeme se domnívat, že se s největší pravděpodobností jedná o vztah typu 1:n (jeden klient může mít více transakcí, ale každá transakce má jednoho klienta).
+-- Nyní to zkontrolujme SQL(schéma databáze neurčuje typy vztahů):
+
+USE financial; -- from now on, the default database schema we use is: financial
+
+-- checking type of relationship (kontrola typů vztahů)
+SELECT
+    account_id,
+    count(trans_id) as amount
+FROM trans
+GROUP BY account_id
+ORDER BY 2 DESC
+
+-- V tomto případě stačí zkontrolovat, zda je v tabulce pro daný více trans_idtransakcí . 
+-- Můžeme to udělat například pomocí , jako v příkladu výše. Stačí vybrat a zkontrolovat počet transakcí pro něj. 
+-- Použití řazení zaručuje, že pokud je v databázi s mnoha transakcemi, zobrazí se na začátku výsledků. trans account_id GROUP BY account_id account_id
+-- Samozřejmě to lze provést i pomocí HAVING. Pro účely tohoto cvičení jsou tyto přístupy ekvivalentní.
+
 -- Vztahy ve  financial databázi:
 -- 1.	client – district (1:N): Jeden okres (district) může mít více klientů (client), ale každý klient patří pouze do jednoho okresu.
 -- 2.	account – client – disp (N:M skrze disponenty): Jeden klient může mít více účtů, ale účet může mít více disponentů. Vztah se realizuje skrze tabulku disp.
@@ -25,6 +44,7 @@ SELECT * FROM card;
 -- 4.	account – trans (1:N): Každý účet může mít mnoho transakcí (trans), ale každá transakce patří k jednomu účtu.
 -- 5.	disp – card (1:N): Každý disponent (disp) může mít více karet (card), ale každá karta patří jen jednomu disponentovi.
 -- 6.	account – order (1:N): Jeden účet může mít mnoho platebních příkazů (order), ale každý platební příkaz patří jen k jednomu účtu.
+
 
 
 -- 2.HISTORIE POSKYTNUTÝCH ÚVĚRŮ
@@ -68,6 +88,7 @@ FROM loan
 GROUP BY loan_year WITH ROLLUP
 ORDER BY loan_year DESC;
 
+
 -- total
 SELECT
     sum(amount) as total_amount_of_loans,
@@ -79,6 +100,7 @@ FROM loan;
 -- 3. STAV PŮJČKY
 
 -- stavy půjček: splacené a nesplacené
+
 -- Dle informací je 606 splacených a 76 nesplacených
 SELECT
     status,
@@ -88,6 +110,7 @@ group by status
 order by status;
 
 -- Zjistili jsme že řádky A a C odpovídají splaceným půjčkám a B a D nesplaceným půjčkám.
+
 
 -- 4.ANALÝZA ÚČTŮ
 
@@ -295,7 +318,7 @@ order by celkový_počet_úvěrů DESC;
 -- Nejvyšší částka úvěrů 10.502.628 Kč byla vyplacena v Praze
 
 
---- Zde je potřeba vše spojit do CTE pokládat potom dotazy
+--- Je potřeba vše spojit do CTE, pokládat potom dotazy
 DROP TABLE IF EXISTS tmp_district_analytics_pa_1;
 CREATE TEMPORARY TABLE tmp_district_analytics_pa_1 AS (
     SELECT
@@ -444,4 +467,3 @@ DELIMITER ;
 CALL UpdateExpiringCards_pa();
 
 SELECT * FROM cards_at_expiration_pa;
-
